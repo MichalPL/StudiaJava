@@ -19,7 +19,7 @@ public class MyArrayList<T> {
             sb += list[size - 1] + "]";
             return sb;
         } else {
-            return null;
+            return "[]";
         }
     }
 
