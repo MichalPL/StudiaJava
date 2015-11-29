@@ -1,27 +1,39 @@
 import com.oracle.jrockit.jfr.NoSuchEventException;
 import com.sun.org.apache.bcel.internal.util.Objects;
+
+import java.io.IOException;
 import java.util.Map;
 
 /**
  * Created by Michal on 2015-11-28.
  */
 public class Manager {
-    public ListOfEvents loe;
+    private ListOfEvents loe;
+    private Configuration conf;
 
     public Manager() {
         loe = new ListOfEvents("Dzisiaj", "Jutro", "Za tydzień", "Za rok"); //defaultowe kategorie
+        conf = new Configuration();
     }
 
-    public void run() throws NoSuchEventException {
+    public void run() throws NotFoundException, IOException {
+
         addEvent("Dzisiaj", 11212, "asasas", "sdfdfgds", "HIGH", "DO_ZROBIENIA");
         addEvent("Dzisiaj", 18722, "asasas", "sdadsdsds", "LOW", "DO_ZROBIENIA");
         addEvent("Dzisiaj", 452, "asasas", "sdfdsds", "NORMAL", "DO_ZROBIENIA");
         addEvent("a34hghaa", 164512, "asdasas", "12sdfds", "HIGH", "ZROBIONE");
-        System.out.println(showEventsNotDone());
+
+        if(conf.showCategories())
+            System.out.println(loe.getCat());
+
         eventDone(11212);
-        System.out.println(showEventsByPriority("asasas"));
+
+        if(conf.showNotDone())
+            System.out.println(showEventsNotDone());
+
+        System.out.println(showEventsByPriority(conf.getCategory()));
+
         removeEventbyId(452);
-        System.out.println(showEventsNotDone());
     }
 
     private Event findEventById(int id) {
@@ -39,7 +51,7 @@ public class Manager {
         loe.getCat().addCategory(name);
     }
 
-    private void addEvent(String category, int id, String name, String text, String priority, String progress) {
+    private void addEvent(String category, int id, String name, String text, String priority, String progress) throws IOException {
         Event newEv = new Event(id,name,PriorityEnum.valueOf(priority),text,ProgressEnum.valueOf(progress));
         loe.getEvents().add(newEv);
         Category cat = new Category(category);
@@ -50,7 +62,7 @@ public class Manager {
         loe.getEventsAndCat().put(cat, newEv);
     }
 
-    private void eventDone(int id) throws NoSuchEventException {
+    private void eventDone(int id) throws NotFoundException {
         Event event = findEventById(id);
         event.setProgress(ProgressEnum.ZROBIONE);
     }
@@ -63,21 +75,27 @@ public class Manager {
 
     private String showEventsNotDone() {
         StringBuilder sb = new StringBuilder();
+        sb.append("\n==============================\n");
+        sb.append("=    ZADANIA DO ZROBIENIA    =");
+        sb.append("\n==============================\n");
         for(Map.Entry<Category, Event> entry: loe.getEventsAndCat().entrySet())
         {
             if (Objects.equals(entry.getValue().getProgress(),ProgressEnum.DO_ZROBIENIA)) {
-                sb.append(entry.getValue().getID()).append(" ")
+                sb.append(entry.getValue());
+                /*.getID()).append(" ")
                         .append(entry.getValue().getName()).append(" ")
                         .append(entry.getValue().getPriority()).append(" ")
                         .append(entry.getValue().getProgress())
-                        .append("\n");
+                        .append("\n"*/
             }
         }
         return sb.toString();
     }
 
     private String showEventsByPriority(String cat) {
-        return loe.byPriority(cat, PriorityEnum.HIGH) +
+        return "\n==============================\n" + "= " + cat + " ="
+                + "\n==============================\n" +
+                loe.byPriority(cat, PriorityEnum.HIGH) +
                 loe.byPriority(cat, PriorityEnum.NORMAL) +
                 loe.byPriority(cat, PriorityEnum.LOW);
     }

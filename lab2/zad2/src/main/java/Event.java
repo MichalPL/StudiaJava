@@ -13,7 +13,7 @@ public class Event {
     public String toString() {
         return "ID: " + ID + "\nNazwa: " + name + "\nPriorytet: "
                 + priority + "\nOpis: " + text + "\nPostęp: "
-                + progress;
+                + progress + "\n=========================\n";
     }
 
     public Event(int id, String name, PriorityEnum priority, String text, ProgressEnum progress) {

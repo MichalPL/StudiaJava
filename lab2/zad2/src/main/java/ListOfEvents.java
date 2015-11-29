@@ -33,11 +33,12 @@ public class ListOfEvents extends HashMap {
         {
             if (entry.getKey().toString().equals(cat)) {
                 if (entry.getValue().getPriority().equals(prior)) {
-                    sb.append(entry.getValue().getID()).append(" ")
+                    sb.append(entry.getValue());
+                    /*.getID()).append(" ")
                             .append(entry.getValue().getName()).append(" ")
                             .append(entry.getValue().getPriority()).append(" ")
                             .append(entry.getValue().getProgress())
-                            .append("\n");
+                            .append("\n"*/
                 }
             }
         }
