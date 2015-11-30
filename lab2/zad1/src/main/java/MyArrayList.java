@@ -8,23 +8,30 @@ import java.util.Objects;
 public class MyArrayList<T> {
     private Object[] list;
     private int size;
+    private int eleCount;
+
+    public MyArrayList() {
+        size = 10;
+        list = new Object[size];
+        eleCount = 0;
+    }
 
     @Override
     public String toString() {
-        if(size > 0 ) {
+        if(eleCount > 0 ) {
             String sb = ("[");
-            for (int i = 0; i < size - 1; i++) {
+            for (int i = 0; i < eleCount - 1; i++) {
                 sb += list[i] + ", ";
             }
-            sb += list[size - 1] + "]";
+            sb += list[eleCount - 1] + "]";
             return sb;
         } else {
-            return null;
+            return "[]";
         }
     }
 
-    public int getSize() {
-        return list.length;
+    public int size() {
+        return eleCount;
     }
 
     public void add(Object... items){
@@ -32,18 +39,22 @@ public class MyArrayList<T> {
             if (list == null) {
                 list = new Object[1];
                 list[0] = item;
-                size = 1;
+                eleCount = 1;
+            } else if(eleCount < size){
+                list[eleCount] = item;
+                eleCount++;
             } else {
-                list = Arrays.copyOf(list, size + 1);
-                list[size] = item;
-                size++;
+                size *= 2;
+                list = Arrays.copyOf(list, size);
+                list[eleCount] = item;
+                eleCount++;
             }
         }
     }
 
     public Object getItem(int index){
         Object obj = null;
-        for(int i = 0; i < size; i++) {
+        for(int i = 0; i < eleCount; i++) {
             if(Objects.equals(index,i))
                 obj = list[i];
         }
@@ -55,45 +66,44 @@ public class MyArrayList<T> {
     }
 
     public void clear() {
-        list = null;
-        size = 0;
+        size = 10;
+        list = new Object[size];
+        eleCount = 0;
     }
-
-    public void removeItemByIndex(int... index) {
+// 0, 1 ,2,3,4, , , , , ,
+    public void removeItemByIndex(int index) {
         Object[] temp1, temp2;
-        for (int anIndex : index) {
-            if (size > 0) {
-                for (int i = 0; i < size; i++) {
-                    if (Objects.equals(anIndex, i)) {
-                        temp1 = new Object[anIndex];
-                        temp2 = new Object[size - anIndex];
-                        System.arraycopy(list, 0, temp1, 0, anIndex);
-                        System.arraycopy(list, anIndex + 1, temp2, 0, size - anIndex - 1);
+            if (eleCount > 0) {
+                for (int i = 0; i < eleCount; i++) {
+                    if (Objects.equals(index, i)) {
+                        temp1 = new Object[index];
+                        temp2 = new Object[size - index - 1];
+                        System.arraycopy(list, 0, temp1, 0, index);
+                        System.arraycopy(list, index + 1, temp2, 0, size - index - 1);
                         System.arraycopy(temp1, 0, list, 0, temp1.length);
                         System.arraycopy(temp2, 0, list, temp1.length, temp2.length);
                     }
                 }
-                size--;
+                eleCount--;
             }
-        }
     }
 
     public void removeItemByValue(T... item) {
         Object[] temp1;
         Object[] temp2;
         for (T anItem : item) {
-            if (size > 0) {
-                for (int i = 0; i < size; i++) {
+            if (eleCount > 0) {
+                for (int i = 0; i < eleCount; i++) {
                     if (Objects.equals(anItem, list[i])) {
                         temp1 = new Object[i];
-                        temp2 = new Object[size - i];
+                        temp2 = new Object[size - i - 1];
                         System.arraycopy(list, 0, temp1, 0, i);
                         System.arraycopy(list, i + 1, temp2, 0, size - i - 1);
                         System.arraycopy(temp1, 0, list, 0, temp1.length);
                         System.arraycopy(temp2, 0, list, temp1.length, temp2.length);
                     }
                 }
-                size--;
+                eleCount--;
             }
         }
     }
