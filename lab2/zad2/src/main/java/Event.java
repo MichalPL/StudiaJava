@@ -11,7 +11,11 @@ public class Event {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return  "ID: " + ID + "\nNazwa: " + name + "\nPriorytet: "
+=======
+        return "ID: " + ID + "\nNazwa: " + name + "\nPriorytet: "
+>>>>>>> origin/master
                 + priority + "\nOpis: " + text + "\nPostęp: "
                 + progress + "\n=========================\n";
     }

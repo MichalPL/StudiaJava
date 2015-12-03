@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Predicate;
+=======
+import java.util.*;
+>>>>>>> origin/master
 
 /**
  * Created by Michal on 2015-11-28.
@@ -20,7 +24,18 @@ public class ListOfCategories extends ArrayList {
     }
 
     public boolean search(String name) {
+<<<<<<< HEAD
         return alist.stream().anyMatch(s->Objects.equals(s.toString(),name));
+=======
+        boolean r = false;
+        for(int i = 0; i < alist.size(); i++)
+        {
+            if(Objects.equals(alist.get(i).toString(), name)) {
+                r = true;
+            }
+        }
+        return r;
+>>>>>>> origin/master
     }
 
     @Override

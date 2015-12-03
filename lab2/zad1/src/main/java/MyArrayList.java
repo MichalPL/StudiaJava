@@ -27,6 +27,7 @@ public class MyArrayList<T> {
             return sb;
         } else {
             return "[]";
+<<<<<<< HEAD
         }
     }
 
@@ -39,6 +40,8 @@ public class MyArrayList<T> {
             if (list[i].equals(item)) {
                 return true;
             }
+=======
+>>>>>>> origin/master
         }
         return false;
     }

@@ -32,12 +32,30 @@ public class Configuration {
         }
     }
 
+<<<<<<< HEAD
     public String getPropertyAsString(String propertyName) {
         return properties.getProperty(propertyName);
     }
 
     public boolean gePropertytAsBool(String propertyName) {
         return Boolean.parseBoolean(properties.getProperty(propertyName));
+=======
+    public String getProperty(String propertyName) {
+        return properties.getProperty(propertyName);
+    }
+
+    public boolean showCategories() {
+        return Boolean.parseBoolean(properties.getProperty("SHOW_CATEGORIES"));
+    }
+
+
+    public boolean showNotDone() {
+        return Boolean.parseBoolean(properties.getProperty("SHOW_NOTDONE"));
+    }
+
+    public String getCategory() {
+        return properties.getProperty("CATEGORY");
+>>>>>>> origin/master
     }
 
 }

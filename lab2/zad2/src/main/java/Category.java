@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import java.util.Observable;
+
+>>>>>>> origin/master
 /**
  * Created by Michal on 2015-11-28.
  */
