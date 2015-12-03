@@ -3,7 +3,7 @@
  */
 public class MainClass {
     static MyArrayList<MyArrayList<Integer>> arraylist = new MyArrayList<MyArrayList<Integer>>();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         MyArrayList<Integer> a1 = new MyArrayList<Integer>();
         a1.add(0, 1,2,3,4,5,6,7,8,9,5445,11,12);
         MyArrayList<Integer> a2 = new MyArrayList<Integer>();
@@ -16,9 +16,7 @@ public class MainClass {
         System.out.println(arraylist);
 
         System.out.println(a1);
-        a1.removeItemByIndex(11);
-        System.out.println(a1);
-        a1.removeItemByValue(5445, 2,6,4,8);
+        a1.removeItemByValue(12,1,2);
         System.out.println(a1);
         System.out.println(a1.size());
         System.out.println(arraylist);

@@ -30,38 +30,45 @@ public class MyArrayList<T> {
         }
     }
 
+    public boolean isEmpty() {
+        return (eleCount == 0);
+    }
+
+    public boolean contains(Object item) {
+        for (int i = 0; i < eleCount; i++) {
+            if (list[i].equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int size() {
         return eleCount;
     }
 
     public void add(Object... items){
         for (Object item : items) {
-            if (list == null) {
-                list = new Object[1];
-                list[0] = item;
-                eleCount = 1;
-            } else if(eleCount < size){
-                list[eleCount] = item;
-                eleCount++;
-            } else {
+            if(eleCount >= size) {
                 size *= 2;
                 list = Arrays.copyOf(list, size);
-                list[eleCount] = item;
-                eleCount++;
             }
+            list[eleCount] = item;
+            increaseElementCount();
         }
+    }
+
+    private void increaseElementCount() {
+        eleCount++;
     }
 
     public Object getItem(int index){
-        Object obj = null;
-        for(int i = 0; i < eleCount; i++) {
-            if(Objects.equals(index,i))
-                obj = list[i];
-        }
-        return obj;
+        return list[index];
     }
 
-    public void setItem(int index, T item){
+    public void setItem(int index, T item) throws Exception{
+        if(list.length < index)
+            throw new Exception("Out of index!");
         list[index] = item;
     }
 
@@ -70,43 +77,26 @@ public class MyArrayList<T> {
         list = new Object[size];
         eleCount = 0;
     }
-// 0, 1 ,2,3,4, , , , , ,
-    public void removeItemByIndex(int index) {
-        Object[] temp1, temp2;
-            if (eleCount > 0) {
-                for (int i = 0; i < eleCount; i++) {
-                    if (Objects.equals(index, i)) {
-                        temp1 = new Object[index];
-                        temp2 = new Object[size - index - 1];
-                        System.arraycopy(list, 0, temp1, 0, index);
-                        System.arraycopy(list, index + 1, temp2, 0, size - index - 1);
-                        System.arraycopy(temp1, 0, list, 0, temp1.length);
-                        System.arraycopy(temp2, 0, list, temp1.length, temp2.length);
-                    }
-                }
-                eleCount--;
-            }
+
+    public int indexOf(Object item) {
+        for (int i = 0; i < eleCount; i++) {
+            if (list[i].equals(item))
+                return i;
+        }
+        return -1;
     }
 
-    public void removeItemByValue(T... item) {
-        Object[] temp1;
-        Object[] temp2;
+    public void removeItemByValue(T... item) throws Exception {
+        if(isEmpty()) throw new Exception("Lista jest pusta!");
+
         for (T anItem : item) {
-            if (eleCount > 0) {
-                for (int i = 0; i < eleCount; i++) {
-                    if (Objects.equals(anItem, list[i])) {
-                        temp1 = new Object[i];
-                        temp2 = new Object[size - i - 1];
-                        System.arraycopy(list, 0, temp1, 0, i);
-                        System.arraycopy(list, i + 1, temp2, 0, size - i - 1);
-                        System.arraycopy(temp1, 0, list, 0, temp1.length);
-                        System.arraycopy(temp2, 0, list, temp1.length, temp2.length);
-                    }
-                }
-                eleCount--;
+            if (!contains(anItem)) throw new Exception("Brak elementu " + anItem);
+            for (int i = indexOf(anItem); i < eleCount - 1; i++) {
+                list[i] = list[i + 1];
             }
+            list[eleCount - 1] = null;
+            eleCount--;
         }
     }
-
 
 }
