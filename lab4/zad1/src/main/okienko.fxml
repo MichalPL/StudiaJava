@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="239.0" layoutY="360.0" mnemonicParsing="false" text="Sprawdź" id="check"/>
+      <Button layoutX="317.0" layoutY="360.0" mnemonicParsing="false" text="Dalej" id="next"/>
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="131.0" prefHeight="214.0" prefWidth="572.0" id="answerPanel">
+        <content>
+          <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="16.0" prefHeight="103.0" prefWidth="572.0" text="Label" wrapText="true" id="quest"/>
+       <Label alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="16.0" prefHeight="103.0" prefWidth="572.0" text="Label" wrapText="true" id="counter"/>
+   </children>
+</Pane>
