@@ -6,30 +6,38 @@ import java.util.ArrayList;
  * Created by Michal on 2015-12-29.
  */
 public class Model {
-
-
-    Connection con = null;
-    Statement stmt = null;
-    StringToArrayParser stapraser;
+    private Connection con = null;
+    private Statement stmt = null;
+    private StringToArrayParser stapraser;
 
     public Model() {
         stapraser = new StringToArrayParser();
     }
+
+    private void getConnectionEtc(boolean autoCommit) throws ClassNotFoundException, SQLException {
+        Class.forName("org.sqlite.JDBC");
+        con = DriverManager.getConnection("jdbc:sqlite:test.db");
+        stmt = con.createStatement();
+        if(!autoCommit) con.setAutoCommit(false);
+    }
+
+    private void closeConnectionEtc(String sql, boolean executeUpdate) throws SQLException {
+        if(stmt == null || con == null) return;
+        if(executeUpdate) stmt.executeUpdate(sql);
+        stmt.close();
+        con.commit();
+        con.close();
+    }
+
     public void createDB(){
         try {
-            Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:test.db");
-
-            stmt = con.createStatement();
-
+            getConnectionEtc(true);
             String sql = "CREATE TABLE questions " +
                     "(id INTEGER PRIMARY KEY     AUTOINCREMENT," +
                     " text           TEXT    NOT NULL, " +
                     " answers        TEXT     NOT NULL, " +
                     " correct        INT     NOT NULL)";
-            stmt.executeUpdate(sql);
-            stmt.close();
-            con.close();
+            closeConnectionEtc(sql, false);
 
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -38,32 +46,15 @@ public class Model {
     }
 
     public void insertToDB(String q, ArrayList<String> l, int cor) throws SQLException, ClassNotFoundException {
-
-        Class.forName("org.sqlite.JDBC");
-        con = DriverManager.getConnection("jdbc:sqlite:test.db");
-
-        stmt = con.createStatement();
+        getConnectionEtc(false);
         String a = stapraser.toStr(l);
-
-
-        con.setAutoCommit(false);
-
         String sql = "INSERT INTO questions (text,answers,correct) " +
                 "VALUES ('" + q + "','" + a + "','" + cor +"');";
-        stmt.executeUpdate(sql);
-
-        stmt.close();
-        con.commit();
-        con.close();
+        closeConnectionEtc(sql, true);
     }
 
     public Question getQuest(int id) throws SQLException, ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
-        con = DriverManager.getConnection("jdbc:sqlite:test.db");
-
-        stmt = con.createStatement();
-
-        con.setAutoCommit(false);
+        getConnectionEtc(false);
         ResultSet rs = stmt.executeQuery( "SELECT * FROM questions WHERE id = '"+ id +"';" );
         String text = "";
         String answers = "";
@@ -73,26 +64,18 @@ public class Model {
             answers = rs.getString("answers");
             correct = rs.getInt("correct");
         }
-        stmt.close();
-        con.commit();
-        con.close();
+        closeConnectionEtc("", false);
         return new Question(id, text, stapraser.toArr(answers), correct);
     }
 
     public int getCount() throws SQLException, ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
-        con = DriverManager.getConnection("jdbc:sqlite:test.db");
-
-        stmt = con.createStatement();
-        con.setAutoCommit(false);
+        getConnectionEtc(false);
         ResultSet rs = stmt.executeQuery( "SELECT COUNT(*) FROM questions");
         int count = 0;
         while ( rs.next() ) {
             count = rs.getInt(1);
         }
-        stmt.close();
-        con.commit();
-        con.close();
+        closeConnectionEtc("", false);
         return count;
     }
 

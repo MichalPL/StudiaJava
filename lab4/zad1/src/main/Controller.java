@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Controller {
-    Model model;
-    View view;
-    Question quest;
-    int questNumber;
-    int correctAnswers;
-    RadnomNumber rNumber;
-    ArrayList<Integer> randomList;
-    int allQuestCount;
-    Printer prnt;
+    private Model model;
+    private View view;
+    private Question quest;
+    private int questNumber;
+    private int correctAnswers;
+    private RadnomNumber rNumber;
+    private ArrayList<Integer> randomList;
+    private int allQuestCount;
+    private Printer prnt;
 
     public Controller(Model model, View view) throws SQLException, ClassNotFoundException {
         this.model = model;
@@ -35,51 +35,46 @@ public class Controller {
     private void startListenerCheckButton(Button btn) {
         btn.setOnAction(event -> {
             btn.setDisable(true);
-            try {
-                if(isCorrect(getCheckedId())) {
-                    prnt.setButtonText(btn, "Poprawne");
-                    correctAnswers++;
-                }
-                else {
-                    prnt.setButtonText(btn, "Błędne");
-                }
-                prnt.setInfo(questNumber, correctAnswers);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if(isCorrect(getCheckedId())) {
+                prnt.setButtonText(btn, "Poprawne");
+                correctAnswers++;
             }
+            else {
+                prnt.setButtonText(btn, "Błędne");
+            }
+            prnt.setInfo(questNumber, correctAnswers);
         });
     }
 
     private void startListenerNextButton(Button btn) {
         Button checkBtn = view.getButton("check");
         btn.setOnAction(event -> {
-            try {
+            checkBtn.setDisable(false);
+            prnt.setButtonText(checkBtn, "Sprawdź");
+            prnt.setInfo(questNumber, correctAnswers);
+            fillQuestion();
 
-                checkBtn.setDisable(false);
-                prnt.setButtonText(checkBtn, "Sprawdź");
-                prnt.setInfo(questNumber, correctAnswers);
-                fillQuestion();
-
-                if((questNumber >= allQuestCount)) {
-                    btn.setDisable(true);
-                    prnt.setButtonText(btn, "KONIEC TESTU");
-                }
-
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
+            if ((questNumber >= allQuestCount)) {
+                btn.setDisable(true);
+                prnt.setButtonText(btn, "KONIEC TESTU");
             }
+
         });
     }
 
-    public void fillQuestion() throws SQLException, ClassNotFoundException {
-        quest = model.getQuest(randomList.get(questNumber));
+    public void fillQuestion() {
+        try {
+            quest = model.getQuest(randomList.get(questNumber));
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         ArrayList<String> al = quest.getAnswers();
         view.setAnswers(al, quest.getText());
         view.draw();
         questNumber++;
     }
 
-    public boolean isCorrect(int checkedRadio) throws SQLException {
+    public boolean isCorrect(int checkedRadio) {
         return Objects.equals(quest.getCorrect(), checkedRadio);
     }
 
