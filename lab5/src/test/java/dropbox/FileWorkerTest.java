@@ -11,7 +11,7 @@ public class FileWorkerTest {
 
     @Test(expected = FileNotFoundException.class)
     public void shouldBeFileNotFoundException() throws Exception {
-        new FileWorker(new Sender(), "").call();
+        new FileWorker(new Sender(new ConfigManager()), "").call();
 
     }
 }

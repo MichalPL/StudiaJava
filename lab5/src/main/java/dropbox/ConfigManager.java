@@ -1,7 +1,6 @@
 package dropbox;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -10,9 +9,11 @@ import java.util.Properties;
  */
 public class ConfigManager {
     Properties prop = new Properties();
-    public ConfigManager() throws IOException {
+    public ConfigManager() throws ReadFileException {
         try(InputStream input = new FileInputStream("config.properties")) {
             prop.load(input);
+        } catch(Exception e) {
+            throw new ReadFileException(e);
         }
     }
 

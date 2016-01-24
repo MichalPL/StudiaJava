@@ -33,6 +33,7 @@ public class GUIView {
 
     public void setInfo(String s)
     {
+
         Platform.runLater(() -> getInfo().setText(s));
     }
 }

@@ -7,15 +7,20 @@ import java.util.concurrent.Callable;
  */
 public class FileWorker implements Callable{
     private Sender sender;
-    String path;
+    private String path;
     public FileWorker(Sender sender, String path) {
         this.sender = sender;
         this.path = path;
     }
 
     @Override
-    public Object call() throws Exception {
-        sender.send(path);
+    public Object call() throws SendFileException {
+        try {
+            sender.send(path);
+        }
+        catch (SendFileException e) {
+            System.out.println(e.toString());
+        }
         return null;
     }
 }

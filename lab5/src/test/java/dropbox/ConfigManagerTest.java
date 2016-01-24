@@ -1,14 +1,18 @@
-package dropbox
+package dropbox;
 
-import org.junit.Test
+import org.junit.Test;
 
-import static junit.framework.Assert.assertSame
+import static org.junit.Assert.assertSame;
 
 /**
- * Created by Michal on 2016-01-16.
+ * Created by Michal on 2016-01-21.
  */
-class ConfigManagerTest {
-    private ConfigManager configManager = new ConfigManager();
+public class ConfigManagerTest {
+    private ConfigManager configManager;
+
+    public ConfigManagerTest() throws ReadFileException {
+        configManager = new ConfigManager();
+    }
 
     @Test
     public void shouldReturn10() {

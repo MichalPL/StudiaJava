@@ -9,6 +9,6 @@ public class StatsWorkerTest {
 
     @Test(expected = NullPointerException.class)
     public void ShouldBeNullException() {
-        new StatsWorker(null, null).generateStats();
+        new StatsWorker(null).generateStats();
     }
 }

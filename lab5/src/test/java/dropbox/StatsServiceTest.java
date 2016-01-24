@@ -9,7 +9,8 @@ public class StatsServiceTest {
 
     @Test
     public void testGetStats() throws Exception {
-        StatsService statsService = new StatsService(new Sender());
+        ConfigManager configManager = new ConfigManager();
+        StatsService statsService = new StatsService(new Sender(configManager), configManager);
         statsService.getStats();
         Assert.assertEquals(statsService.getStats(), 0);
     }

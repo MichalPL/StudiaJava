@@ -18,7 +18,7 @@ public class ListenerTest {
     }
 
     @Test
-    public void shouldBeNull() throws IOException {
-        new Listener(10, null).sendInThread("");
+    public void shouldBeNull() throws IOException, InterruptedException {
+        new Listener(10, null, null).sendInThread("");
     }
 }

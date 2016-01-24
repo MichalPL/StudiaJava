@@ -13,6 +13,6 @@ public class SenderTest {
     @Test(expected = FileNotFoundException.class)
     public void testSendFile() throws Exception {
         File file = new File("");
-        new Sender().sendFile(file);
+        new Sender(new ConfigManager()).sendFile(file);
     }
 }
