@@ -1,4 +1,4 @@
-package dropbox;
+package crawler;
 
 /**
  * Created by Michal on 2016-01-21.

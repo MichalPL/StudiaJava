@@ -1,14 +1,7 @@
-package dropbox;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.*;
-import java.sql.SQLException;
+package crawler;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 
 /**
  * Created by Michal on 2016-01-11.

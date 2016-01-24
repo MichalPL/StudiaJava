@@ -1,13 +1,9 @@
-package dropbox;
+package crawler;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.*;

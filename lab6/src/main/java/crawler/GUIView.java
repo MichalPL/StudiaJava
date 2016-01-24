@@ -1,12 +1,10 @@
-package dropbox;
+package crawler;
 
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 /**
  * Created by Michal on 2016-01-15.
