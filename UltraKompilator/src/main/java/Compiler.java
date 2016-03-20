@@ -25,9 +25,10 @@ public class Compiler {
         System.out.println("Trwa kompilacja...");
         Mnemonic mnemonic;
         for (int i = 1; i <= fileWorker.getLinesCount(); i++) {
-            String line = fileWorker.getLine(i).replaceAll("^\\s+", "");
+            String line = fileWorker.getLine(i).replaceAll("^\\s+", "").replaceAll(", ", ",");
             if(!line.isEmpty() && !line.startsWith(";")) {
                 String[] splitString = line.split("[ ,]");
+                splitString[0] = splitString[0].toLowerCase();
                 //System.out.println(splitString[0] + "|" + splitString[1] + "|" + splitString[2]);
                 if (isValidMnemonic(splitString[0])) { //poprawny mnemonik?
 
@@ -38,7 +39,9 @@ public class Compiler {
                         mnemonic = new Mnemonic(splitString[0], "a", "0");
                         list.add(mnemonic);
                     } else if(map.getArgCount(splitString[0]) == 1) {
-                        if (isValidArgWhenOnlyOne(splitString[1])) { //poprawny arg? typu jump
+                        splitString[0] = splitString[0].toLowerCase();
+                        splitString[1] = splitString[1].toLowerCase();
+                        if (isValidArgWhenOnlyOne(splitString[0], splitString[1])) { //poprawny arg? typu jump
                             mnemonic = new Mnemonic(splitString[0], "a", splitString[1]);
                             list.add(mnemonic);
                         } else {
@@ -46,6 +49,9 @@ public class Compiler {
                             System.exit(0);
                         }
                     } else if(map.getArgCount(splitString[0]) == 2) {
+                        splitString[0] = splitString[0].toLowerCase();
+                        splitString[1] = splitString[1].toLowerCase();
+                        splitString[2] = splitString[2].toLowerCase();
                         if (isValidArg1(splitString[1])) { //poprawny arg1?
                             if (isValidArg2(splitString[0], splitString[2])) { //poprawny arg2?
                                 if (!isTheSameRegisty(splitString[0], splitString[1], splitString[2])) {
@@ -57,6 +63,7 @@ public class Compiler {
                                 }
                             } else {
                                 System.out.println("Blad! Nieprawidlowy argument 2 w linii: " + i);
+                                System.out.println(splitString[2]);
                                 System.exit(0);
                             }
                         } else {
@@ -114,9 +121,14 @@ public class Compiler {
         return false;
     }
 
-    private boolean isValidArgWhenOnlyOne(String arg)
+    //niestety mnemoniki jednoargumentowe sa zazwyczaj dosc specyficzne, wiec trzeba kazdego osobno rozpatrywac
+    private boolean isValidArgWhenOnlyOne(String name, String arg)
     {
-        return true; //TODO: Dla jumpa itd sprawdzenie
+        if((name.equals("negx") || name.equals("inc")
+                || name.equals("dec")) && registryMap.isRegistry(arg)) return true;
+        else if((name.equals("neg") || name.equals("movzx")) && isNumber(arg)) return true;
+        else if(name.startsWith("j")) return true; //TODO: jump nie jest zrobiony!
+        return false;
     }
 
     private boolean isTheSameRegisty(String name, String arg1, String arg2)
