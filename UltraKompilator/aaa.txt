@@ -13,4 +13,8 @@ add r0,-120
 
 add r1,0
 
-SUBX r0, r5
+SUBX r0    ,               r5
+
+      cLr
+
+  inc                 r1

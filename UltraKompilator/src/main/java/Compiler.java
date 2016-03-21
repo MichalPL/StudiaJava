@@ -25,13 +25,11 @@ public class Compiler {
         System.out.println("Trwa kompilacja...");
         Mnemonic mnemonic;
         for (int i = 1; i <= fileWorker.getLinesCount(); i++) {
-            String line = fileWorker.getLine(i).replaceAll("^\\s+", "").replaceAll(", ", ",");
+            String line = fileWorker.getLine(i).replaceAll("^\\s+", "");
             if(!line.isEmpty() && !line.startsWith(";")) {
-                String[] splitString = line.split("[ ,]");
+                String[] splitString = line.split("\\W+");
                 splitString[0] = splitString[0].toLowerCase();
-                //System.out.println(splitString[0] + "|" + splitString[1] + "|" + splitString[2]);
                 if (isValidMnemonic(splitString[0])) { //poprawny mnemonik?
-
                     if(map.getArgCount(splitString[0]) == -1) {
                         System.out.println("Bład podczas kompilacji w linii: " + i);
                         System.exit(0);
@@ -55,8 +53,13 @@ public class Compiler {
                         if (isValidArg1(splitString[1])) { //poprawny arg1?
                             if (isValidArg2(splitString[0], splitString[2])) { //poprawny arg2?
                                 if (!isTheSameRegisty(splitString[0], splitString[1], splitString[2])) {
-                                    mnemonic = new Mnemonic(splitString[0], splitString[1], splitString[2]);
-                                    list.add(mnemonic);
+                                    if(isSyntaxCorrect(line)) {
+                                        mnemonic = new Mnemonic(splitString[0], splitString[1], splitString[2]);
+                                        list.add(mnemonic);
+                                    } else {
+                                        System.out.println("Blad! Niepoprawna skladnia! Sprawdz przecinek w linii " + i);
+                                        System.exit(0);
+                                    }
                                 } else {
                                     System.out.println("Blad! Probujesz wykonac operacje na tym samym rejestrze w linii: " + i);
                                     System.exit(0);
@@ -131,12 +134,12 @@ public class Compiler {
         return false;
     }
 
-    private boolean isTheSameRegisty(String name, String arg1, String arg2)
+    private boolean isTheSameRegisty(String name, String arg1, String arg2) //zeby uniknac np. kopiowania z tego samego rejestru
     {
         return name.endsWith("x") && (arg1.equals(arg2));
     }
 
-    private boolean isNumber(String name)
+    private boolean isNumber(String name) //czy string to liczba -> do sprawdzania drugiego argumentu
     {
         try
         {
@@ -150,4 +153,9 @@ public class Compiler {
         return true;
     }
 
+    private boolean isSyntaxCorrect(String line) //sprawdzanie czy przy dwoch argumentach jest przecinek miedzy nimi
+    {
+        String[] splitString = line.split("\\W+");
+        return (map.getArgCount(splitString[0].toLowerCase()) == 2 && line.contains(","));
+    }
 }
