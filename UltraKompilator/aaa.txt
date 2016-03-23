@@ -1,4 +1,4 @@
-addx r0,r1 
+addx r0,r1
 
 
 add r0,0
@@ -12,9 +12,11 @@ subx r3,r2 ;komentarz 2
 add r0,-120
 
 add r1,0
-
 SUBX r0    ,               r5
 
       cLr
 
   inc                 r1
+   anans:
+   addx r0, r1
+jmp anans
