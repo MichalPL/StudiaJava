@@ -1,0 +1,8 @@
+CHANGELOG
+20-03-16
+1. Dodano wszystkie mnemoniki
+2. Dodano możliwoć pisania mnemoników wielkimi i maymi literami
+
+21-03-16
+1. Dodano mozliwosc wielu spacji miedzy argumentami
+2. Dodano sprawdzanie przecinka przy 2 argumentach
