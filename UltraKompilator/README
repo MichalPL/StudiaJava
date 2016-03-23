@@ -6,3 +6,7 @@ CHANGELOG
 21-03-16
 1. Dodano mozliwosc wielu spacji miedzy argumentami
 2. Dodano sprawdzanie przecinka przy 2 argumentach
+
+23-03-16
+1. Naprawiono blad z niepoprawna kompilacja mnemonikow inc i dec
+2. Dodano etykiety oraz obsluge mnemonika jmp
