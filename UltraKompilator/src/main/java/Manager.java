@@ -12,6 +12,7 @@ public class Manager {
     Compiler compiler;
     FileWorker fileWorker;
     Converter converter;
+    Validator validator;
     String fileName = "";
 
     public Manager() {
@@ -20,7 +21,8 @@ public class Manager {
         registryMap = new RegistryMap();
         fileWorker = new FileWorker(fileName);
         converter = new Converter();
-        compiler = new Compiler(mnemonicMap, registryMap, fileWorker, converter);
+        validator = new Validator(registryMap, mnemonicMap);
+        compiler = new Compiler(mnemonicMap, registryMap, fileWorker, converter, validator);
     }
 
     public void preStart()
@@ -29,7 +31,6 @@ public class Manager {
         System.out.println("Podaj nazwe pliku do skompilowania!");
         try {
             fileName +=  System.getProperty("user.dir") + "\\" + br.readLine();
-            //fileName = System.getProperty("user.dir") + "\\" + "aaa.txt";
         } catch (IOException e) {
             System.out.println("Blad podczas wczytywania pliku...");
         }

@@ -1,7 +1,7 @@
 CHANGELOG
 20-03-16
 1. Dodano wszystkie mnemoniki
-2. Dodano możliwoć pisania mnemoników wielkimi i maymi literami
+2. Dodano możliwosć pisania mnemoników wielkimi i maymi literami
 
 21-03-16
 1. Dodano mozliwosc wielu spacji miedzy argumentami
@@ -10,3 +10,8 @@ CHANGELOG
 23-03-16
 1. Naprawiono blad z niepoprawna kompilacja mnemonikow inc i dec
 2. Dodano etykiety oraz obsluge mnemonika jmp
+
+25-03-16
+1. Usprawniono kod
+2. Kod się stał bardziej przejrzysty
+3. Dodano komentarze wyjasniajace
