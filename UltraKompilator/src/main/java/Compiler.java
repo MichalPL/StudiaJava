@@ -115,6 +115,7 @@ public class Compiler {
             list.add(mnemonic);
         } else {
             System.out.println("Blad! Nieprawidlowy argument 1 w linii: " + counter);
+            System.out.println(splitString[1]);
             System.exit(0);
         }
     }
@@ -145,6 +146,7 @@ public class Compiler {
             }
         } else {
             System.out.println("Blad! Nieprawidlowy argument 1 w linii: " + counter);
+            System.out.println(splitString[1]);
             System.exit(0);
         }
     }

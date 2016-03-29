@@ -16,13 +16,12 @@ public class RegistryMap {
     {
         map.put("a",    "000");
         map.put("b",    "001");
-        map.put("r0",   "010");
-        map.put("r1",   "011");
-        map.put("r2",   "100");
-        map.put("r3",   "101");
-        map.put("r4",   "110");
-        map.put("r5",   "111");
-
+        map.put("x",    "010");
+        map.put("r0",   "011");
+        map.put("r1",   "100");
+        map.put("r2",   "101");
+        map.put("r3",   "110");
+        map.put("r4",   "111");
     }
 
     public boolean isRegistry(String name) {

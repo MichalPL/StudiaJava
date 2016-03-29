@@ -15,3 +15,7 @@ CHANGELOG
 1. Usprawniono kod
 2. Kod się stał bardziej przejrzysty
 3. Dodano komentarze wyjasniajace
+
+29-03-16
+1. Dodano pokazywanie nieprawidłowego elementu przy błędzie
+2. Dodano skoki warunkowe jw, jm, jr

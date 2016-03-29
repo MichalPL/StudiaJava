@@ -40,7 +40,7 @@ public class Validator {
 
     public boolean isJump(String name, String arg)
     {
-        return (name.equals("jmp")) //|| name.equals("jw") || name.equals("jm") || name.equals("jr")
+        return (name.equals("jmp") || name.equals("jw") || name.equals("jm") || name.equals("jr"))
                 && !isNumber(arg);
     }
 

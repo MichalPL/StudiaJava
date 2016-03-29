@@ -12,7 +12,7 @@ subx r3,r2 ;komentarz 2
 add r0,-120
 
 add r1,0
-SUBX r0    ,               r5
+SUBX r0    ,               r4
 
       cLr
 
