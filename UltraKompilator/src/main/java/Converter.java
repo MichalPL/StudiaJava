@@ -39,7 +39,9 @@ public class Converter {
         }
         else if(num < 0)
         {
-            return negate(convertToBinary(num + 1));
+            num = num*-1;
+            //System.out.println(getString(convertToBinary(num - 1)));
+            return negate(convertToBinary(num - 1));
         }
         else
         {

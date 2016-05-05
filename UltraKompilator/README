@@ -19,3 +19,7 @@ CHANGELOG
 29-03-16
 1. Dodano pokazywanie nieprawidłowego elementu przy błędzie
 2. Dodano skoki warunkowe jw, jm, jr
+
+05-05-16
+1. Naprawiono blad dla ujemnych liczb
+2. Naprawiono pomniejsze bledy dla jump

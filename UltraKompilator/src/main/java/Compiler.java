@@ -37,11 +37,11 @@ public class Compiler {
         for (int i = 1; i <= fileWorker.getLinesCount(); i++) {
             String line = fileWorker.getLine(i).replaceAll("^\\s+", ""); //usuniecie z wiersza spacji na lewo od poczatku pierwszego slowa
             if(!line.isEmpty() && !line.startsWith(";")) { //jesli linia nie jest pusta lub nie jest komentarzem
-                lineCounter++; //zwiekszamy ilosc wierszy w skompilowanym pliku
                 if (validator.isLabel(line.replaceAll("\\s", ""))) { //jeśli to etykieta
-                    labelMap.put(line.replaceAll("\\W+", ""), lineCounter + 1); //dodanie do listy etykiet i usuniecie dwukropkow itp itd
+                    labelMap.put(line.replaceAll("\\W+", ""), lineCounter); //dodanie do listy etykiet i usuniecie dwukropkow itp itd
                 } else {
-                    String[] splitString = line.split("\\W+"); //podzielenie stringa do tablicy
+                    lineCounter++; //zwiekszamy ilosc wierszy w skompilowanym pliku
+                    String[] splitString = line.split("[^\\w-]+"); //podzielenie stringa do tablicy
                     splitString[0] = splitString[0].toLowerCase();
                     if (validator.isValidMnemonic(splitString[0]) || validator.isLabel(splitString[0])) { //jesli poprawny mnemonik lub jest to etykieta
                         if (map.getArgCount(splitString[0]) == -1) { //jakis blad
@@ -85,7 +85,7 @@ public class Compiler {
                 fileWorker.addToFile(converter.getString(converter.convertToU2(aList.getArg2())) + "\n");
             } else if(validator.isJump(aList.getName(), aList.getArg2())) { //jesli to jump
                 if(labelMap.get(aList.getArg2()) != null) { //szukamy etykiety
-                    fileWorker.addToFile(converter.getString(converter.convertToU2(labelMap.get(aList.getArg2()).toString())));
+                    fileWorker.addToFile(converter.getString(converter.convertToU2(labelMap.get(aList.getArg2()).toString())) + "\n" );
                 } else {
                     System.out.println("Blad! Sprawdz etykiety!");
                     System.exit(0);

@@ -1,22 +1,30 @@
-addx r0,r1
+;addx r0,r1
 
 
-add r0,0
+;add r0,0
  ;komentarz 1
 
 
- sub r2,20
+; sub r2,20
 
-subx r3,r2 ;komentarz 2
+;subx r3,r2 ;komentarz 2
 
-add r0,-120
+;add r0,-120
 
-add r1,0
-SUBX r0    ,               r4
+;add r1,0
+;SUBX r0    ,               r4
 
-      cLr
+;      cLr
 
-  inc                 r1
+;  inc                 r1
    anans:
    addx r0, r1
 jmp anans
+add r0,-120
+   anans2:
+   addx r0, r1
+jmp anans2
+
+   anans3:
+   addx r0, r1
+jmp anans3
